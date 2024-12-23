@@ -1,0 +1,50 @@
+{% extends 'eventpr/_base.html' %} {% load static %}
+<title>{% block title %}Registration List Page{% endblock title %}</title>
+<body>
+  {% block content %}
+  <div class="container my-5">
+    <h1 class="mb-4">My Registered Events</h1>
+    <hr />
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for event in object_list %}
+      <div class="col">
+        <div class="card shadow-sm h-100">
+          {% if event.event_image %}
+          <img
+            src="{{ event.event_image.url }}"
+            alt="{{ event.name }}"
+            class="card-img-top img-fluid"
+            style="max-height: 200px; object-fit: cover"
+          />
+          {% else %}
+          <img
+            src="{% static '37.jpg' %}"
+            alt="Default Image"
+            class="card-img-top img-fluid"
+            style="max-height: 200px; object-fit: cover"
+          />
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <p class="card-text">
+              <strong>Event Live On:</strong> {{ event.dateEvent }}<br />
+              <strong>Registration Date:</strong> {{ event.registered_on }}
+            </p>
+            <a
+              href="{% url 'event-details' event.pk %}"
+              class="btn btn-primary btn-sm"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-4">
+      <a href="{% url 'register' %}" class="btn btn-success">Register Event+</a>
+    </div>
+  </div>
+  {% endblock content %}
+</body>

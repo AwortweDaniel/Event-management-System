@@ -1,0 +1,29 @@
+{% extends 'eventpr/_base.html' %} {% load static %}
+
+<title>{% block title %}EventPage{% endblock title %}</title>
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Events</h1>
+  <hr />
+  <div class="row g-4">
+    {% for event in events %}
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <img
+          src="{{ event.img.url }}"
+          alt="{{ event.name }}"
+          class="card-img-top img-fluid"
+          style="max-height: 200px; object-fit: cover"
+        />
+        <div class="card-body">
+          <h4 class="card-title">{{ event.name }}</h4>
+          <p class="card-text">{{ event.desc }}</p>
+          <p class="text-muted">Event live on:{{ event.date }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

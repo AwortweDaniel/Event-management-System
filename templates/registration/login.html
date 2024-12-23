@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Login{% endblock title %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: url("https://via.placeholder.com/1920x1080") no-repeat
+          center center fixed;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-light d-flex justify-content-center align-items-center"
+    style="height: 100vh"
+  >
+    <div
+      class="p-5 bg-light bg-opacity-75 rounded shadow"
+      style="max-width: 400px; width: 100%"
+    >
+      {% if form.errors %}
+      <div class="alert alert-danger text-center">
+        You've entered an incorrect username or password
+      </div>
+      {% endif %} {% if next %} {% if not user.is_authenticated %}
+      <div class="alert alert-warning text-center">
+        Please login to view that page
+      </div>
+      {% else %}
+      <h1 class="text-center">Please login</h1>
+      {% endif %} {% endif %}
+      <h1 class="text-center mb-4">Login</h1>
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">{{ form.as_p }}</div>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+      <p class="text-center mt-3">
+        Don't have an account? <a href="{% url 'signup' %}">Sign up here</a>
+      </p>
+    </div>
+  </body>
+</html>
